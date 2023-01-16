@@ -6,8 +6,8 @@ define("URL", str_replace("index.php", "", (isset($_SERVER['HTTPS']) ? "https" :
 
 require_once("./controllers/Toolbox.class.php");
 require_once("./controllers/Securite.class.php");
-require_once("./controllers/Boutique.controller.php");
-$boutiqueController = new BoutiqueController();
+require_once("./controllers/Affichage.controller.php");
+$affichageController = new AffichageController();
 
 try {
     if (empty($_GET['page'])) {
@@ -20,14 +20,16 @@ try {
     switch ($page) {
 
 
-        case "accueil":
-            $boutiqueController->afficheBoutique();
+        case "affichage":
+            $affichageController->Affichage();
             break;
-
+        case "menu":
+            $affichageController->Menu();
+            break;
         default:
 
             throw new Exception("La page n'existe pas");
     }
 } catch (Exception $e) {
-    $visiteurController->pageErreur($e->getMessage());
+    $affichageController->pageErreur($e->getMessage());
 }
